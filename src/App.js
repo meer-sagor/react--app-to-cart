@@ -2,6 +2,7 @@ import React, { useState, createContext } from "react";
 import Header from "./Components/Layout/Header";
 import Meals from "./Components/Meals/Meals";
 import Cart from "./Components/Cart/Cart";
+import CartProvider from "./Store/CartProvider";
 
 export const cartShowContext = createContext();
 const App = () => {
@@ -13,15 +14,15 @@ const App = () => {
   const cartShowContextValue = { showCartHandler, hideCartHandler };
 
   return (
-    <>
+    <CartProvider>
       <cartShowContext.Provider value={cartShowContextValue}>
         {cartIsShown && <Cart />}
         <Header />
-        <main>
-          <Meals />
-        </main>
       </cartShowContext.Provider>
-    </>
+      <main>
+        <Meals />
+      </main>
+    </CartProvider>
   );
 };
 
