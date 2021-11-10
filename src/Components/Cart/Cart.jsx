@@ -11,8 +11,20 @@ const Cart = () => {
   const { hideCartHandler } = useContext(cartShowContext);
   const cartCtx = useContext(CartContext);
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
+
   const cartItems = cartCtx.items.map((item) => (
-    <CartItem key={item.id} {...item} />
+    <CartItem
+      key={item.id}
+      onAdd={cartItemAddHandler.bind(null, item)}
+      onRemove={cartItemRemoveHandler.bind(null, item.id)}
+      {...item}
+    />
   ));
   return (
     <Modal>
